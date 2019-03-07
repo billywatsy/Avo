@@ -1,0 +1,7 @@
+C:\projects\Avo\Avo\Avo\bin\Debug\Avo.exe.config
+C:\projects\Avo\Avo\Avo\bin\Debug\Avo.exe
+C:\projects\Avo\Avo\Avo\bin\Debug\Avo.pdb
+C:\projects\Avo\Avo\Avo\obj\Debug\Avo.csprojAssemblyReference.cache
+C:\projects\Avo\Avo\Avo\obj\Debug\Avo.csproj.CoreCompileInputs.cache
+C:\projects\Avo\Avo\Avo\obj\Debug\Avo.exe
+C:\projects\Avo\Avo\Avo\obj\Debug\Avo.pdb
