@@ -19,7 +19,7 @@ namespace Avo
         /// <param name="charactersToAdd"></param>
         /// <param name="numberOfWords"></param>
         /// <returns></returns>
-        public static string Except(this string originalValue, string charactersToAdd, int numberOfWords)
+        public static string ToExcept(this string originalValue, string charactersToAdd, int numberOfWords)
         {
             var showValueEndExceptValue = false;
             if (string.IsNullOrEmpty(originalValue))
@@ -42,6 +42,18 @@ namespace Avo
                 newWord += charactersToAdd;
             }
             return newWord;
+        }
+
+        /// <summary>
+        /// clean string to allow A-Za-z0-9 and spaces , underscores , '
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string ToAlphaNumericWithOutSpace(string value)
+        {
+            if (value == null) return null;
+            string clean = System.Text.RegularExpressions.Regex.Replace(value, @"[^a-zA-Z0-9\s]", string.Empty);
+            return clean;
         }
     }
 }

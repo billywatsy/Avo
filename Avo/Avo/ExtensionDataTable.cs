@@ -8,9 +8,10 @@ namespace Avo
 {
     public static class ExtensionDataTable
     {
-        public static System.Data.DataTable RemoveDuplicateRows(this System.Data.DataTable dTable, string colName)
+              
+        public static System.Data.DataTable RemoveDuplicateRows(this System.Data.DataTable dataTable, string columnName)
         {
-            if (dTable == null)
+            if (dataTable == null)
             {
                 return null;
             }
@@ -20,26 +21,26 @@ namespace Avo
 
             //Add list of all the unique item value to hashtable, which stores combination of key, value pair.
             //And add duplicate item value in arraylist.
-            foreach (System.Data.DataRow drow in dTable.Rows)
+            foreach (System.Data.DataRow drow in dataTable.Rows)
             {
-                if (hTable.Contains(drow[colName]))
+                if (hTable.Contains(drow[columnName]))
                 {
                     duplicateList.Add(drow);
                 }
                 else
                 {
-                    hTable.Add(drow[colName], string.Empty);
+                    hTable.Add(drow[columnName], string.Empty);
                 } 
             }
 
             //Removing a list of duplicate items from datatable.
             foreach (System.Data.DataRow dRow in duplicateList)
             {
-                dTable.Rows.Remove(dRow);
+                dataTable.Rows.Remove(dRow);
             }
 
             //Datatable which contains unique records will be return as output.
-            return dTable;
+            return dataTable;
         }
     }
 }
