@@ -11,10 +11,9 @@ namespace Avo
         static void Main(string[] args)
         {
             decimal tes = 294944.8484827M;
+            int iint = 34;
             Console.WriteLine(tes.ToThousandSeparator(3));
-            Console.WriteLine(tes.ToThousandSeparator(0));
-            Console.WriteLine(tes.ToThousandSeparator(1));
-            Console.WriteLine(tes.ToThousandSeparator(2));
+            Console.WriteLine(iint.ToThousandSeparator(2)); 
             Console.ReadKey();
         }
     }

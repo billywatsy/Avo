@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Avo
 {
-    public static class Extension_DataTable
+    public static class ExtensionDataTable
     {
         public static System.Data.DataTable RemoveDuplicateRows(this System.Data.DataTable dTable, string colName)
         {

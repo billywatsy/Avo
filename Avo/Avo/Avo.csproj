@@ -43,9 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extension_DataTable.cs" />
-    <Compile Include="Extension_Number.cs" />
-    <Compile Include="Extension_String.cs" />
+    <Compile Include="ExtensionDataTable.cs" />
+    <Compile Include="ExtensionNumber.cs" />
+    <Compile Include="ExtensionString.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

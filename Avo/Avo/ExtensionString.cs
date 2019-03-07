@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Avo
 {
-    public static class Extension_String
+    public static class ExtensionString
     {
         /// <summary>
         ///  example we have a phrase " welcome to contoso unvisert"
