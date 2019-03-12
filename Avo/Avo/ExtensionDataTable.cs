@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,36 @@ namespace Avo
 {
     public static class ExtensionDataTable
     {
-              
+        public static bool IsColumnExist(this DataTable dataTable, string columnName)
+        {
+            if (dataTable.Columns.Contains(columnName))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static decimal GetSumDataTableValue(this DataTable dataTable , string id, string columnKey, string columnValue )
+        {
+            if (dataTable == null) return 0;
+            var value = 0M;
+            if (dataTable.Columns.Contains(columnKey) && dataTable.Columns.Contains(columnValue))
+            { 
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    if (row[columnKey].ToString() == id)
+                    {
+                        value += decimal.Parse(row[columnValue].ToString());
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("Column Key or value name does not exist");
+            }
+            return value;
+        }
+
         public static System.Data.DataTable RemoveDuplicateRows(this System.Data.DataTable dataTable, string columnName)
         {
             if (dataTable == null)
@@ -41,6 +71,6 @@ namespace Avo
 
             //Datatable which contains unique records will be return as output.
             return dataTable;
-        }
+        } 
     }
 }

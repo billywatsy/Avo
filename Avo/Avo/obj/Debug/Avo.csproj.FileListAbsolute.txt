@@ -8,7 +8,7 @@ C:\projects\Avo\Avo\Avo\obj\Debug\Avo.pdb
 C:\Users\paradigm\Documents\GitHub\Avo\Avo\Avo\bin\Debug\Avo.exe.config
 C:\Users\paradigm\Documents\GitHub\Avo\Avo\Avo\bin\Debug\Avo.exe
 C:\Users\paradigm\Documents\GitHub\Avo\Avo\Avo\bin\Debug\Avo.pdb
-C:\Users\paradigm\Documents\GitHub\Avo\Avo\Avo\obj\Debug\Avo.csprojAssemblyReference.cache
 C:\Users\paradigm\Documents\GitHub\Avo\Avo\Avo\obj\Debug\Avo.csproj.CoreCompileInputs.cache
 C:\Users\paradigm\Documents\GitHub\Avo\Avo\Avo\obj\Debug\Avo.exe
 C:\Users\paradigm\Documents\GitHub\Avo\Avo\Avo\obj\Debug\Avo.pdb
+C:\Users\paradigm\Documents\GitHub\Avo\Avo\Avo\obj\Debug\Avo.csprojAssemblyReference.cache

@@ -15,6 +15,8 @@ namespace Avo
             // note this would crash when passed a non-numeric object.
             // that's why it's private, and it's the class's responsibility
             // to limit the entry points to this function to numeric types only
+
+            if (numberOfDecimalPlaces < 0) numberOfDecimalPlaces = 0;
             return String.Format("{0:N" + Math.Max(0, numberOfDecimalPlaces) + "}", numeric);
         }
         #endregion
@@ -39,6 +41,14 @@ namespace Avo
         {
             return AddThousandsSeparator(value, numberOfDecimalPlaces);
         }
+
+        public static string ToThousandsSeparator(this float value, int numberOfDecimalPlaces)
+        {
+            return AddThousandsSeparator(value, numberOfDecimalPlaces);
+        }
+
         #endregion
+
+
     }
 }
