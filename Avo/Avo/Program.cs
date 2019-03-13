@@ -113,8 +113,8 @@ namespace Avo
             dataStudentExamRow5["mark"] = 42;
             dtStudentExam.Rows.Add(dataStudentExamRow5);
 
-            var dt = HelperDataTable.MergeRowsToColumns(dtProduct, "productId", "name", dtSales);
-            var dt2 = HelperDataTable.MergeRowsToColumns(dtStudents, "studentId", "fullname", dtStudentExam); 
+           var dt = HelperDataTable.MergeRowsToColumns(dtProduct, "productId", "name", dtSales , "quantity", "month");
+           var dt2 = HelperDataTable.MergeRowsToColumns(dtStudents, "studentId", "fullname", dtStudentExam , "mark", "subjectId"); 
             Console.ReadKey();
         }
     }

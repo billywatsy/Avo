@@ -9,7 +9,7 @@ namespace Avo
 {
     public class HelperDataTable
     {
-        public static System.Data.DataTable MergeRowsToColumns(DataTable rowDataTable, string rowDataTableIdColumnName, string friendlyName, DataTable columData)
+        public static System.Data.DataTable MergeRowsToColumns(DataTable rowDataTable, string rowDataTableIdColumnName, string friendlyName, DataTable dataAllValue , string dataColumnValue , string  dataColumnKey)
         {
             List<string> columnsToAdd = new List<string>();
             if (rowDataTable == null)
@@ -20,16 +20,20 @@ namespace Avo
             finalDataTable.Columns.Add(friendlyName.ToLower());
             finalDataTable.Columns.Add(rowDataTableIdColumnName.ToLower());
 
-            foreach (DataColumn column in columData.Columns)
+            foreach (DataRow row in dataAllValue.Rows)
             {
-                if (column.ColumnName.ToString() == rowDataTableIdColumnName.ToString())
+                if (row[rowDataTableIdColumnName].ToString() == rowDataTableIdColumnName.ToString())
                 {
                     continue;
                 }
                 else
                 {
-                    finalDataTable.Columns.Add(column.ColumnName.ToString());
-                    columnsToAdd.Add(column.ColumnName.ToString());
+                    var isExistColumnValue = columnsToAdd.Where(c => c == row[dataColumnKey].ToString()).FirstOrDefault();
+                    if(isExistColumnValue == null)
+                    {
+                        columnsToAdd.Add(row[dataColumnKey].ToString());
+                        finalDataTable.Columns.Add(row[dataColumnKey].ToString());
+                    }
                 }
             }
             
@@ -38,14 +42,15 @@ namespace Avo
                 DataRow newRow = finalDataTable.NewRow();
                 newRow[rowDataTableIdColumnName] = row[rowDataTableIdColumnName];
                 newRow[friendlyName] = row[friendlyName];
-                foreach (DataRow columnRows in columData.Rows)
-                {
-
-                    foreach (string column in columnsToAdd)
+                foreach (DataRow columnRows in dataAllValue.Rows)
+                { 
+                    if(row[rowDataTableIdColumnName].ToString() != columnRows[rowDataTableIdColumnName].ToString())
                     {
-                        var value = columnRows[column].ToString();
-                        newRow[column] = value; 
+                        continue;
                     }
+                    var columnName = columnRows[dataColumnKey].ToString();
+                    var columnValue = columnRows[dataColumnValue].ToString();
+                    newRow[columnName] = columnValue; 
                 }
                 finalDataTable.Rows.Add(newRow);
             }
