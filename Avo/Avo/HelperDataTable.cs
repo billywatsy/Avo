@@ -9,17 +9,21 @@ namespace Avo
 {
     public class HelperDataTable
     {
-        public static System.Data.DataTable MergeRowsToColumns(DataTable rowDataTable, string rowDataTableIdColumnName, string friendlyName, DataTable dataAllValue , string dataColumnValue , string  dataColumnKey)
+        public static System.Data.DataTable MergeRowsToColumns(DataTable rowDataTable, string rowDataTableIdColumnName, string friendlyName, DataTable dataAllValue , string dataColumnValue , string  dataColumnKey , bool IncludeTotal , string totalFriendlyName)
         {
+            var ColumnKeyTotalName = "dataTableRowTotalForAllColumns";
             List<string> columnsToAdd = new List<string>();
             if (rowDataTable == null)
             {
                 return null;
             }
             DataTable finalDataTable = new DataTable();
-            finalDataTable.Columns.Add(friendlyName.ToLower());
-            finalDataTable.Columns.Add(rowDataTableIdColumnName.ToLower());
-
+            finalDataTable.Columns.Add(friendlyName);
+            finalDataTable.Columns.Add(rowDataTableIdColumnName);
+            if (IncludeTotal)
+            { 
+                finalDataTable.Columns.Add(ColumnKeyTotalName);
+            }
             foreach (DataRow row in dataAllValue.Rows)
             {
                 if (row[rowDataTableIdColumnName].ToString() == rowDataTableIdColumnName.ToString())
@@ -42,6 +46,8 @@ namespace Avo
                 DataRow newRow = finalDataTable.NewRow();
                 newRow[rowDataTableIdColumnName] = row[rowDataTableIdColumnName];
                 newRow[friendlyName] = row[friendlyName];
+
+                decimal _total = 0;
                 foreach (DataRow columnRows in dataAllValue.Rows)
                 { 
                     if(row[rowDataTableIdColumnName].ToString() != columnRows[rowDataTableIdColumnName].ToString())
@@ -50,11 +56,35 @@ namespace Avo
                     }
                     var columnName = columnRows[dataColumnKey].ToString();
                     var columnValue = columnRows[dataColumnValue].ToString();
-                    newRow[columnName] = columnValue; 
+                    newRow[columnName] = columnValue;
+
+                    try
+                    {
+                        _total += decimal.Parse(columnValue);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+                if (IncludeTotal)
+                {
+                    newRow[ColumnKeyTotalName] = _total;
                 }
                 finalDataTable.Rows.Add(newRow);
             }
+            if (IncludeTotal)
+            {
+                if (!string.IsNullOrEmpty(totalFriendlyName))
+                {
+                    if (!finalDataTable.Columns.Contains(totalFriendlyName))
+                    {
+                        finalDataTable.RenameColumn(ColumnKeyTotalName, totalFriendlyName);
+                    }
+                }
+            }
             return finalDataTable;
         }
+
     }
 }

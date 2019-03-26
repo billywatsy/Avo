@@ -19,8 +19,7 @@ namespace Avo
             dataRow["productId"] = 1;
             dataRow["name"] = "Burger";
             dtProduct.Rows.Add(dataRow);
-
-
+            
             DataRow dataRow2 = dtProduct.NewRow();
             dataRow2["productId"] = 2;
             dataRow2["name"] = "Chicken";
@@ -113,8 +112,22 @@ namespace Avo
             dataStudentExamRow5["mark"] = 42;
             dtStudentExam.Rows.Add(dataStudentExamRow5);
 
-           var dt = HelperDataTable.MergeRowsToColumns(dtProduct, "productId", "name", dtSales , "quantity", "month");
-           var dt2 = HelperDataTable.MergeRowsToColumns(dtStudents, "studentId", "fullname", dtStudentExam , "mark", "subjectId"); 
+           var dt = HelperDataTable.MergeRowsToColumns(dtProduct, "productId", "name", dtSales , "quantity", "month" , true , "Total Sales");
+           var dt2 = HelperDataTable.MergeRowsToColumns(dtStudents, "studentId", "fullname", dtStudentExam , "mark", "subjectId" , true , "Overal Score");
+
+            dt.Columns.Remove("productId");
+            dt2.Columns.Remove("studentId");
+
+            DataTable dtSubject = new DataTable();
+            dtSubject.Columns.Add("subjectId");
+            dtSubject.Columns.Add("name");
+           
+            DateTime dtr = new DateTime(2019, 3, 15);
+
+            var sm = dtr.ToShortTimeDisplay();
+            string diff = dtr.ToTimeSpanDifference();
+            string dtHtml = dt.ToHtmlTable(null);
+            string dtHtml2 = dt2.ToHtmlTable(null);
             Console.ReadKey();
         }
     }

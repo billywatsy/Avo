@@ -17,28 +17,54 @@ namespace Avo
             }
             return false;
         }
-
-        public static decimal GetSumDataTableValue(this DataTable dataTable , string id, string columnKey, string columnValue )
+ 
+        private static decimal GetSumDataTableValue(this DataTable dataTable , string rowValueId, string columnKey, string columnValue)
         {
             if (dataTable == null) return 0;
-            var value = 0M;
+            decimal value = 0; 
             if (dataTable.Columns.Contains(columnKey) && dataTable.Columns.Contains(columnValue))
-            { 
-                foreach (DataRow row in dataTable.Rows)
+            {
+                if (dataTable != null)
                 {
-                    if (row[columnKey].ToString() == id)
+                    foreach (DataRow drRow in dataTable.Rows)
                     {
-                        value += decimal.Parse(row[columnValue].ToString());
+                        if (drRow[columnKey].ToString() == rowValueId)
+                        {
+                            value += decimal.Parse(drRow[columnValue].ToString());
+                        }
                     }
                 }
-            }
-            else
-            {
-                throw new Exception("Column Key or value name does not exist");
             }
             return value;
         }
 
+        public static string GetRowColumnValue(this DataTable dataTable , int rowNumber , int columnNumber)
+        {
+            var value = dataTable.Rows[rowNumber][columnNumber].ToString();
+            return value;
+        }
+
+        public static bool RemoveColumn(this DataTable dataTable , string columnName)
+        {
+            if (dataTable.Columns.Contains(columnName))
+            {
+                dataTable.Columns.Remove(columnName);
+                return true;
+            }
+            return false;
+        }
+
+        public static bool RenameColumn(this DataTable dataTable , string oldName , string newName)
+        {
+            if (dataTable.Columns.Contains(oldName))
+            {
+                dataTable.Columns[oldName].ColumnName = newName;
+                dataTable.AcceptChanges();
+                return true;
+            }
+            return false;
+        } 
+        
         public static System.Data.DataTable RemoveDuplicateRows(this System.Data.DataTable dataTable, string columnName)
         {
             if (dataTable == null)
@@ -71,6 +97,38 @@ namespace Avo
 
             //Datatable which contains unique records will be return as output.
             return dataTable;
-        } 
+        }
+
+        public static string ToHtmlTable(this DataTable dt ,string tableCssClass)
+        {
+            if (dt == null)
+            {
+                return null;
+            }
+            string html = "<table class='"+ tableCssClass +"'>";
+            //add header row
+            html += "<thead>";
+            html += "<tr>";
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                html += "<th>" + dt.Columns[i].ColumnName + "</th>";
+            }
+            html += "</tr>";
+            html += "</thead>";
+            //add rows
+            html += "<tbody>";
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                html += "<tr>";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                { 
+                    html += "<td>" + dt.Rows[i][j].ToString() + "</td>";
+                }
+                html += "</tr>";
+            }
+            html += "</tbody>";
+            html += "</table>";
+            return html;
+        }
     }
 }
